@@ -77,9 +77,10 @@ document.getElementById("randomBtn").addEventListener("click", async () => {
     const citySelect = document.getElementById("citySelect");
 
     if (!citySelect.value) {
-        alert("請先選擇縣市");
+        showToast("請先選擇縣市");
         return;
     }
+
 
     const pt = getRandomPointInside(currentPolygon);
     const [lng, lat] = pt.geometry.coordinates;
@@ -95,7 +96,7 @@ document.getElementById("randomBtn").addEventListener("click", async () => {
     const address = await reverseGeocode(lat, lng);
 
     if (address) {
-        addressBox.innerText = `📍 ${address}`;
+        renderAddress(address);
     } else {
         addressBox.innerText = "📍 無法取得地址";
     }
@@ -131,3 +132,41 @@ async function reverseGeocode(lat, lng) {
     return parts.filter(Boolean).join("");
 }
 
+function renderAddress(address) {
+    const addressBox = document.getElementById("addressBox");
+
+    addressBox.innerHTML = `
+        <div class="address-content">
+            <span class="copy-icon" id="copyAddressBtn" title="複製地址"> <img src="copy.png" alt="複製"></span>
+            <span>${address}</span>
+        </div>
+    `;
+
+    const copyBtn = document.getElementById("copyAddressBtn");
+    copyBtn.addEventListener("click", async () => {
+        try {
+            await navigator.clipboard.writeText(address);
+            showToast("✔ 地址已複製");
+        } catch (e) {
+            showToast("❌ 複製失敗");
+        }
+    });
+}
+
+function showToast(message) {
+    let toast = document.getElementById("toast");
+
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "toast";
+        toast.className = "toast";
+        document.body.appendChild(toast);
+    }
+
+    toast.innerText = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 1500);
+}

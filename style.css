@@ -230,3 +230,105 @@ body {
         font-size: 16px;   /* 再強調一次 */
     }
 }
+/* 📋 地址顯示區 */
+.address-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* 複製按鈕 */
+.copy-btn {
+    background: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.copy-btn:active {
+    transform: scale(0.96);
+}
+
+.copy-btn.copied {
+    background: #34C759; /* 綠色表示成功 */
+}
+
+/* 📋 地址顯示 */
+.address-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* 複製 icon 按鈕 */
+.copy-icon {
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+    transition: transform 0.1s, opacity 0.1s;
+}
+
+.copy-icon:active {
+    transform: scale(0.9);
+    opacity: 0.7;
+}
+
+/* 🍞 Toast */
+.toast {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+/* 顯示 toast */
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 📱 手機版：toast 置中底部 */
+@media (max-width: 480px) {
+    .toast {
+        left: 50%;
+        right: auto;
+        transform: translate(-50%, 10px);
+    }
+
+    .toast.show {
+        transform: translate(-50%, 0);
+    }
+}
+.copy-icon {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.copy-icon img {
+    width: 25px;          /* icon 大小 */
+    height: 25px;
+    opacity: 0.8;
+    transition: transform 0.1s, opacity 0.1s;
+}
+
+.copy-icon:active img {
+    transform: scale(0.9);
+}
+  
